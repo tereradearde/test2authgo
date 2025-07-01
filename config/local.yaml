@@ -1,0 +1,12 @@
+env: "local"
+storage_url: "postgres://user:password@localhost:5432/auth?sslmode=disable"
+http_server:
+  host: "localhost"
+  port: "8080"
+  timeout: 4s
+  idle_timeout: 60s
+jwt:
+  secret: "your-super-secret-key-for-hs512"
+  access_ttl: 15m
+  refresh_ttl: 72h
+webhook_url: "https://webhook.site/" 

@@ -1,0 +1,12 @@
+env: "prod"
+storage_url: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable"
+http_server:
+  host: ""
+  port: "8080" 
+  timeout: 4s
+  idle_timeout: 60s
+jwt:
+  secret: "${JWT_SECRET}"
+  access_ttl: 15m
+  refresh_ttl: 72h
+webhook_url: "${WEBHOOK_URL}" 

@@ -1,0 +1,135 @@
+basePath: /
+definitions:
+  http.errorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  http.guidResponse:
+    properties:
+      user_id:
+        type: string
+    type: object
+  http.refreshRequest:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+  http.tokensResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a simple authentication service.
+  title: Auth Service API
+  version: "1.0"
+paths:
+  /auth/tokens:
+    post:
+      consumes:
+      - application/json
+      description: Create access and refresh tokens for a user
+      parameters:
+      - description: User ID (GUID)
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.tokensResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      summary: Create a new pair of tokens
+      tags:
+      - auth
+  /auth/tokens/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Refresh access and refresh tokens using a valid refresh token
+      parameters:
+      - description: Access and Refresh Tokens
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/http.refreshRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.tokensResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      summary: Refresh a pair of tokens
+      tags:
+      - auth
+  /logout:
+    post:
+      description: Deauthorize the current user by deleting their session
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Logout user
+      tags:
+      - auth
+  /me:
+    get:
+      description: Get GUID of the user associated with the provided access token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.guidResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/http.errorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get current user's GUID
+      tags:
+      - auth
+swagger: "2.0"
