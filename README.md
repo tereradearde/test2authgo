@@ -2,13 +2,15 @@
 
 Простой сервис аутентификации на Go.
 
-### Как запустить
+### Установка и запуск
 
-1.  Создайте файл `.env` из `.env.example` (или просто переименуйте его).
+1.  Клонируйте репозиторий.
     ```bash
-    cp .env.example .env
+    git clone https://github.com/your-username/test2auth.git
+    cd test2auth
     ```
-2.  Запустите с помощью Docker.
+2.  Переименуйте файл `.env.example` в `.env`.
+3.  Запустите всё с помощью Docker.
     ```bash
     docker-compose -f docker-compose.yml up -d
     ```
