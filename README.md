@@ -9,11 +9,7 @@
     git clone https://github.com/tereradearde/test2authgo.git
     cd test2auth
     ```
-2.  Создайте файл `.env` из примера.
-    ```bash
-    git clone https://github.com/your-username/test2auth.git
-    cd test2auth
-    ```
+2.  Переименуйте файл .env.example в .env
 3.  Запустите всё с помощью Docker.
     ```bash
     docker-compose -f docker-compose.yml up -d
